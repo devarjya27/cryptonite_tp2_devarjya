@@ -2,7 +2,7 @@
 **Flag:** picoCTF{549698}
 
 ## My Solve
-As the challenge's names is `GDB baby step` it is clear that we need to use the `gdb` command. 
+As the challenge's names is `GDB baby step 1` it is clear that we need to use the `gdb` command. 
 * Firstly I made the file a executable using `chmod`
 ```
 devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ chmod +x debugger0_a
@@ -12,7 +12,9 @@ devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ chmod +x debugger0_a
 devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ gdb debugger0_a
 ```
 * As per the challenge our required hexadecimal number is in the main function. After looking at the manpage for `gdb` I found out that `break` will be useful. Thus setting a breakpoint at the `main` function will help us look for that required hexadecimal number.
-Image
+
+![image](https://github.com/user-attachments/assets/20d058f4-3382-429c-8614-a20f955d28a8)
+
 ```
 gef➤  break main
 Breakpoint 1 at 0x1131
@@ -34,10 +36,15 @@ gef➤  run
 ```
 * Here we can see that `0x86342` is in the `eax` register thus that is our required hexadecimal number
 * Now we simply convert that to its decimal counterpart and that will be the content of our flag.
-Image
+
+![image](https://github.com/user-attachments/assets/05ab0a6b-2cdd-4f73-b4b7-8833b6eb3157)
+
 
 ## Incorrect Tangents I Went On
 After running the program, i overlooked the `eax` and started finding the decimal equivalents of the memory addresses and kept trying to find the flag with those numbers like a dumbass. Eventually I caught on and found the required flag.
 
 ## What I Learned
-I already had an idea of `gdb` as I had used it when I participated in `SpookyCTF` and inevitably had to learn it. This challenge gave me clarity on the command.
+I already had an idea of `gdb` as I inevitably had to learn it when I participated in `SpookyCTF`. This challenge gave me clarity on the command.
+
+## References
+Manpage for `gdb` <https://manpages.ubuntu.com/manpages/mantic/man1/gdb.1.html>
