@@ -57,7 +57,7 @@ Manpage for `gdb` <https://manpages.ubuntu.com/manpages/mantic/man1/gdb.1.html>
 
 ## My Solve
 In this challenge we are given a piece of code written in assembly. The code takes some input performs certain calculations and prints "You Win" or "You Lose" depending on our input. Our goal is to find the number that manages to print "You Win"
-* As I had no idea about assembly, I took help from ChatGPT and it explained the code to me which helped me find the required flag.
+* As I had no idea about assembly, I took help from ChatGPT and <https://www.youtube.com/watch?v=1d-6Hv1c39c> and they explained assembly to me which helped me find the required flag.
 * Firstly, in `func` function, we can see where the code stores our fixed integers: 81,0 and 3. We can see that `81` is stored in `[sp, 16]`, `0` is stored in `[sp, 20]` and `3` is stored in `[sp, 24]`.
 
    ![image](https://github.com/user-attachments/assets/f8d5798a-ac95-46dc-85ec-e3836c22da9b)
@@ -85,6 +85,8 @@ Now arranging `1b` in the given format, we get `0000001b` as the content of the 
 
 ## Incorrect Tangents I Went On
 As the code was explained and simplified by ChatGPT I got the flag on my first few tries.
+## References
+<https://www.youtube.com/watch?v=1d-6Hv1c39c>
 
 ## What I Learned
 Learned about Assembly although not much. Atleast now i can explain how values are stored and how simple calculations are performed in Assembly
