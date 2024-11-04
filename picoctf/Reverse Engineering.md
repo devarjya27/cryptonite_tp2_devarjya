@@ -93,4 +93,48 @@ Learned about Assembly although not much. Atleast now i can explain how values a
 <https://www.youtube.com/watch?v=1d-6Hv1c39c>
 
 
+# vault-door-3
+**Flag:** picoCTF{jU5t_a_s1mpl3_an4gr4m_4_u_1fb380}
+
+## My Solve
+Lookin at the code it is clear that the code expects a input from the user in the format of `picoCTF{` it then takes the substring of the input i.e. the password and checks it in the `checkPassword` function. The function then performs some transformations on it and checks it with `jU5t_a_sna_3lpm18gb41_u_4_mfr340`, if they are the same it returns true and prints "Acces Granted" signifying that we got the flag  right otherwise prints "Access Denied".
+* Firstly our password i.e. the substring after `picoCTF{` should be 32 characters long.
+
+  ![image](https://github.com/user-attachments/assets/b3a01ae9-2730-4694-a473-8645f74b6286)
+* It then creates a `buffer` string of 32 characters and inserts the first 8 characters of the password into `buffer`.
+
+   ![image](https://github.com/user-attachments/assets/a542319b-87dd-4892-89fd-04a348c3073d)
+
+* It then reverses the characters of password from index 8 to index 15 and puts it in `buffer`.
+
+  ![image](https://github.com/user-attachments/assets/ce96af5a-a870-4bee-b06d-2a8a5f12f342)
+
+* After this the code reverses the even indexed characters from index 16 to index 30 and stores it in the even indexes of `buffer`.
+
+  ![image](https://github.com/user-attachments/assets/1e7ec283-1865-4073-9b1a-58b60bb50223)
+
+* After this the code stores the odd indexed characters from index 17 to index 31 in the odd indexes of `buffer`
+
+  ![image](https://github.com/user-attachments/assets/db76d577-142f-4775-97c2-f21082d8c31e)
+
+* After this it checks the transformed string with `jU5t_a_sna_3lpm18gb41_u_4_mfr340` and returns `true` if they are same or `false` if they are different.
+
+  ![image](https://github.com/user-attachments/assets/55f76700-52c3-4df8-a1fe-32fef075dc09)
+
+I manually found out the password by starting from the last string and following what each loop does, thus giving me the flag.
+
+   ![image](https://github.com/user-attachments/assets/9068bab4-af55-4a4e-8ada-25eb02953d1d)
+
+## Incorrect Tangents I Went On
+After doing the entire thing manually I realized i simply could have coded a program that performs the transformations for me taking `jU5t_a_sna_3lpm18gb41_u_4_mfr340` as the input and giving me the password. But regardless the challenge was fun although it took some time as i had to perform the transformations manually
+
+## What I Learned
+As I have decent experience with coding in java, understanding what the code did was fairly easy.
+
+## References
+<https://www.youtube.com/watch?v=84uM8TIoqcI&list=PLMB3ddm5Yvh3gf_iev78YP5EPzkA3nPdL&index=14>
+
+<https://www.youtube.com/watch?v=gh2RXE9BIN8>
+
+
 
