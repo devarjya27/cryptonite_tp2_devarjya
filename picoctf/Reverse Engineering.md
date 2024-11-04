@@ -85,12 +85,12 @@ Now arranging `1b` in the given format, we get `0000001b` as the content of the 
 
 ## Incorrect Tangents I Went On
 As the code was explained and simplified by ChatGPT I got the flag on my first few tries.
-## References
-<https://www.youtube.com/watch?v=1d-6Hv1c39c>
 
 ## What I Learned
 Learned about Assembly although not much. Atleast now i can explain how values are stored and how simple calculations are performed in Assembly
 
+## References
+<https://www.youtube.com/watch?v=1d-6Hv1c39c>
 
 
 
