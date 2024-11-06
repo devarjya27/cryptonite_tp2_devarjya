@@ -45,7 +45,8 @@ print(out)
 ```
 * In place of `chars` i put in the ciphertext and i got the following output. The decrypted message is saved to `decoded.txt`.
 
-Image
+![image](https://github.com/user-attachments/assets/276aa5e1-178b-4131-ac4f-c57bfe86395c)
+
 
 The decrypted message is another piece of code which now returns specific characters from `chars` derived from a given function `b*b*b`. Passing `decoded.txt` as its input gives us the contents of the flag.
 
@@ -68,9 +69,13 @@ for i in range(len(chars)):
 print()
 ```
 
-Image
+![image](https://github.com/user-attachments/assets/85e38277-99e0-40c7-9a15-d8451609d2c5)
+
 
 ## Incorrect Tangents I Went On
 I made a mistake towards the end where i was passing in the original ciphertext in the second script which gave me the wrong flag, after which trying it with the decrypted message gave me the correct flag.
 
-Image
+![image](https://github.com/user-attachments/assets/dbddc286-9150-48dc-9bd3-be77b4776379)
+
+## What I Learned
+From this challenge i learned to  decode a basic custom cipher. I realized not all ciphers can be solved using online cryptography decoders. At times writing our own script to decode a particular ciphertext may be required.
