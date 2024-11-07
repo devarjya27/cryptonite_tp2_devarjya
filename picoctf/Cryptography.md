@@ -2,7 +2,7 @@
 **Flag:** picoCTF{adlibs}
 
 ## My Solve
-* In this challenge we are given a encyption code and a ciphertest which we need to decrypt. Looking at the code we can see that the characters in `lookup1` maps to characters in `lookup2` in a spceial way.
+* In this challenge we are given a encyption code and a ciphertest which we need to decrypt. Looking at the code we can see that the characters in `lookup1` maps to characters in `lookup2` in a special way.
 ```
 import sys
 chars = ""
