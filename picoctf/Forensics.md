@@ -39,9 +39,10 @@
   ![image](https://github.com/user-attachments/assets/f538aa46-ece8-44df-ad61-15a7d8b6fd21)
 
 * The image after changing the hexdump seemed very small for `2.9 MB` so i thought of maybe increasing the width or height of the image will uncover the entire image and we might get our flag.
-* I started off by increasing the height, which according to wikipedia is controlled by 2 bytes at an offset of 22. So I changed `32 01` to `32 04`.
+* I started off by increasing the height, which according to wikipedia is controlled by 2 bytes at an offset of 22. So I changed `32 01` to `40 04`.
 
-  ![image](https://github.com/user-attachments/assets/48df7c68-9725-4d79-af14-940742884cc0)
+  ![image](https://github.com/user-attachments/assets/b160d810-b89c-4830-a360-af6ca9e0bef7)
+
 
   ![image](https://github.com/user-attachments/assets/612674b7-46db-4e87-89c3-64988772a3a2)
 
