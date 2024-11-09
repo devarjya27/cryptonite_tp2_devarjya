@@ -58,6 +58,28 @@
 
 ## References
 <https://en.wikipedia.org/wiki/BMP_file_format>
-  
 
+
+# extensions
+
+**Flag:** picoCTF{now_you_know_about_extensions}
+
+## My Solve
+* Firstly downloading the file, we can see that it is a `.txt` file. After opening it we can figure out that it is a hex dump of a png file as the header begins with `PNG`.
+
+  ![image](https://github.com/user-attachments/assets/df5ad274-6ad3-4205-8183-0dd6965841d6)
+
+* So now saving the file as a png should give us the file. We can save the file as a png by clicking on `Save linked content as` and modify it to a png accordingly
+
+  ![image](https://github.com/user-attachments/assets/bc8771da-74f5-4ab8-9f5c-4a21b13c8a4b)
+
+* Now opening the file, we get the following image:
+
+  ![image](https://github.com/user-attachments/assets/0bc48209-7c38-4df8-b965-ddc774b007f9)
+
+## Incorrect Tangents I Went On
+* None
+
+## What I Learned
+* While saving a image we can edit its extension when and if required accordingly
   
