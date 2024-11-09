@@ -82,4 +82,20 @@
 
 ## What I Learned
 * While saving a image we can edit its extension when and if required accordingly
-  
+
+
+# So Meta
+
+**Flag:** picoCTF{s0_m3ta_fec06741}
+
+## My Solve
+* Looking at the name of the challenge and the hints it is clear that we need to look at the metadata of the file to get our flag.
+* So all I did was put the image in a online metadata viewer and as expected we get our flag.
+
+  ![image](https://github.com/user-attachments/assets/dbc89391-de27-471e-8c51-ae41bb180bdd)
+
+## Incorrect Tangents I Went On
+* None
+
+## What I Learned
+* Looking up the metadata of a file gives us very important info about a file. It describes various attributes of the file such as file type, file size, creation date, artist, etc...
