@@ -99,3 +99,15 @@
 
 ## What I Learned
 * Looking up the metadata of a file gives us very important info about a file. It describes various attributes of the file such as file type, file size, creation date, artist, etc...
+
+# Glory of The Garden
+**Flag:** picoCTF{more_than_m33ts_the_3y3657BaB2C}
+
+## My Solve
+Looking at the hint we can see that it mentions `hex editor` hence I opened the file in `hexed.it` and searched for the substring `picoCTF` and we got our required flag.
+
+## Incorrect Tangents I Went On
+* None
+
+## What I Learned
+* A hexeditor is one of the most useful tools when it comes to Forensics challenges (saying from experience). Thus one of the first things I should do is open the file in a hex ediot if the file is a image and is under the forensics category.
