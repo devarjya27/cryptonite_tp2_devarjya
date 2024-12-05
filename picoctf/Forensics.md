@@ -106,6 +106,8 @@
 ## My Solve
 Looking at the hint we can see that it mentions `hex editor` hence I opened the file in `hexed.it` and searched for the substring `picoCTF` and we got our required flag.
 
+![image](https://github.com/user-attachments/assets/3b809126-f225-4cc2-9367-b64cb8cedd16)
+
 ## Incorrect Tangents I Went On
 * None
 
