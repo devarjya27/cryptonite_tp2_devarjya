@@ -121,8 +121,6 @@ Looking at the hint we can see that it mentions `hex editor` hence I opened the 
 ## My Solve
 I opened the pcap file in Wireshark.And the first thing i tried was searching for the substring `picoCTF`by setting a display filter of `tcp contains picoCTF` and thus we got our flag.
 
-![image](https://github.com/user-attachments/assets/0882b9a4-6f16-4e15-9d39-3b4f1be60cb1)
-
 ![image](https://github.com/user-attachments/assets/443ce065-88fa-4ab8-bf28-d6e6d35da5f1)  
 
 
@@ -134,3 +132,21 @@ Got introduced to wireshark and learned how to use it on a basic level.
 
 ## References
 [Learn Wireshark in 10 minutes - Wireshark Tutorial for Beginners](https://www.youtube.com/watch?v=lb1Dw0elw0Q)
+
+# Wireshark doo dooo do doo...
+**Flag:** picoCTF{p33kab00_1_s33_u_deadbeef}
+
+## My Solve
+We open up the file in Wireshark and then in the analyze section we can see that we have only one option of following the TCP stream. We scroll through the streams and then on the 5th stream we find something which looks like a encrypted flag.
+
+Image
+
+Now decoding this with `ROT13` we get our required flag.
+
+Image
+
+## Incorrect Tangents I Went On
+Initially i tried to search for `picoCTF` by doing `tcp contains picoCTF` also did that for `http` packets but it didnt work then i followed the tcp stream.
+
+## What I Learned
+The `follow` feature analyzes specific streams of data and helps us reconstruct a session for a selected protocol.
