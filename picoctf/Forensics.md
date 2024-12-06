@@ -113,3 +113,18 @@ Looking at the hint we can see that it mentions `hex editor` hence I opened the 
 
 ## What I Learned
 * A hexeditor is one of the most useful tools when it comes to Forensics challenges (saying from experience). Thus one of the first things I should do is open the file in a hex ediot if the file is a image and is under the forensics category.
+
+# PcapPoisoning
+
+**Flag:** picoCTF{P64P_4N4L7S1S_SU55355FUL_fc4e803f}
+
+## My Solve
+I opened the pcap file in Wireshark.And the first thing i tried was searching for the substring `picoCTF`by setting a display filter of `tcp.payload contains "picoCTF"` and thus we got our flag.
+
+Image
+
+## Incorrect Tangents I Went On
+Initially as I did not know how to use `Wireshark` i was using the display filter incorrectly so I watched a yt video on how to use wireshark.
+
+## What I Learned
+Got introduced to wireshark and learned how to use it on a basic level.
