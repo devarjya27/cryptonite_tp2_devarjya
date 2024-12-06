@@ -57,7 +57,7 @@
 * Found out what each hex value in the header for `bmp` files mean.
 
 ## References
-<https://en.wikipedia.org/wiki/BMP_file_format>
+[Wikipedia page for BMP file format](https://en.wikipedia.org/wiki/BMP_file_format)
 
 
 # extensions
@@ -131,3 +131,6 @@ Initially as I did not know how to use `Wireshark` i was using the display filte
 
 ## What I Learned
 Got introduced to wireshark and learned how to use it on a basic level.
+
+## References
+[Learn Wireshark in 10 minutes - Wireshark Tutorial for Beginners](https://www.youtube.com/watch?v=lb1Dw0elw0Q)
