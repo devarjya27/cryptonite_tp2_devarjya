@@ -139,11 +139,12 @@ Got introduced to wireshark and learned how to use it on a basic level.
 ## My Solve
 We open up the file in Wireshark and then in the analyze section we can see that we have only one option of following the TCP stream. We scroll through the streams and then on the 5th stream we find something which looks like a encrypted flag.
 
-Image
+![image](https://github.com/user-attachments/assets/a49f2c1c-bf10-4c1e-8738-2d50c676e8b0)
+
 
 Now decoding this with `ROT13` we get our required flag.
 
-Image
+![image](https://github.com/user-attachments/assets/c2d5d258-4587-4ef6-9863-784d87a54cde)
 
 ## Incorrect Tangents I Went On
 Initially i tried to search for `picoCTF` by doing `tcp contains picoCTF` also did that for `http` packets but it didnt work then i followed the tcp stream.
