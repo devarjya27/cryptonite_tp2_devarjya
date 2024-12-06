@@ -119,7 +119,7 @@ Looking at the hint we can see that it mentions `hex editor` hence I opened the 
 **Flag:** picoCTF{P64P_4N4L7S1S_SU55355FUL_fc4e803f}
 
 ## My Solve
-I opened the pcap file in Wireshark.And the first thing i tried was searching for the substring `picoCTF`by setting a display filter of `tcp.payload contains "picoCTF"` and thus we got our flag.
+I opened the pcap file in Wireshark.And the first thing i tried was searching for the substring `picoCTF`by setting a display filter of `tcp contains picoCTF` and thus we got our flag.
 
 ![image](https://github.com/user-attachments/assets/0882b9a4-6f16-4e15-9d39-3b4f1be60cb1)
 
