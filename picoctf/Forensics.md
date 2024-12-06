@@ -121,7 +121,10 @@ Looking at the hint we can see that it mentions `hex editor` hence I opened the 
 ## My Solve
 I opened the pcap file in Wireshark.And the first thing i tried was searching for the substring `picoCTF`by setting a display filter of `tcp.payload contains "picoCTF"` and thus we got our flag.
 
-Image
+![image](https://github.com/user-attachments/assets/0882b9a4-6f16-4e15-9d39-3b4f1be60cb1)
+
+![image](https://github.com/user-attachments/assets/443ce065-88fa-4ab8-bf28-d6e6d35da5f1)  
+
 
 ## Incorrect Tangents I Went On
 Initially as I did not know how to use `Wireshark` i was using the display filter incorrectly so I watched a yt video on how to use wireshark.
