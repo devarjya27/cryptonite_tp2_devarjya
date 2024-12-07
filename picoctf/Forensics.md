@@ -158,7 +158,8 @@ The `follow` feature analyzes specific streams of data and helps us reconstruct 
 ## My Solve
 Opened the file in `Wireshark` and navigated to `Analyze`->`Follow`->`UDP Stream` as it was the only option/stream to follow. Scrolling through the streams we find our flag at the sixth stream
 
-Image
+![image](https://github.com/user-attachments/assets/391b8723-d806-4057-85ed-097425cf84c7)
+
 
 ## Incorrect Tangents I Went On
 Initially tried adding a display filter of `udp contains picoCTF` but did not get the flag.
