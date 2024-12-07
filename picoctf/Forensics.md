@@ -166,3 +166,51 @@ Initially tried adding a display filter of `udp contains picoCTF` but did not ge
 
 ## What I Learned
 Became a bit more familiar with `Wireshark`
+
+
+# Trivial Flag Transfer Protocol
+**Flag:** picoCTF{h1dd3n_1n_pLa1n_51GHT_18375919}
+
+## My Solve
+Opened the file in `Wireshark`. Looked at the statistics of the file and saw that two protocols are relevant to us `UDP` and `TFTP`. Navigated to `Analyze`->`Follow` and saw that we are able to follow only the `UDP` stream. Scrolling through the streams it seems that there are some files hidden within the `pcap` file.
+
+Image Image
+
+So navigated to the `File` tab and saved the files through `Export Objects`
+
+Image Image
+
+Now opening the `txt` files we see some sort of encrypted text which we need to somehow decode to move forward. Now opening the `debian package` we see that there is a file called `control`. We open `control` and see that `steghide` was probably used to hide data within the images we exported. 
+
+Image
+
+Now after some trial and error I found out that the text is encrypted by `ROT13`. Decoding `instructions.txt` we see that it says to check `plan`. Now decoding `plan.txt` we can see that it says that it has hid data within the images (probably using steghide) with `DUEDILIGENCE`. After a lot of trial and error it seems that `DUEDILIGENCE` was the passphrase used to hide the data. So we extract the data from the images using `steghide` and with the passphrase `DUEDILIGENCE`
+
+From the manpage of `steghide` we can see that we can extract data: 
+`To extract embedded data from stg.jpg: steghide extract -sf stg.jpg`
+
+```
+devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2/tftp$ steghide extract -sf picture1.bmp
+Enter passphrase: 
+steghide: could not extract any data with that passphrase!
+devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2/tftp$ steghide extract -sf picture2.bmp
+Enter passphrase: 
+steghide: could not extract any data with that passphrase!
+devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2/tftp$ steghide extract -sf picture3.bmp
+Enter passphrase: 
+wrote extracted data to "flag.txt".
+```
+
+We can see that the data extracted from `picture3.bmp` is saved to `flag.txt`. Opening `flag.txt` we get our required flag.
+
+Image
+
+## Incorrect Tangents I Went On
++ Initially tried adding display filters `udp contains picoCTF` and `tftp contains picoCTF` which did not work.
++ Also navigated through all of the `UDP` streams as i did not know we could export files. So wasted time there.
++ Was initially trying to extract data from the images without any passphrase and after A LOOOOT of time i found out that `DUEDILIGENCE` was actually the passphrase.
++ Had to install `steghide` as i initially did not have it so wasted a lot of time on online steg tools.
+
+## What I Learned
++ Became a lot more familiar with `Wireshark` and `Steghide`. 
++ `tftp` doesnt encrypt the data that is sent or recieved thus we need to hide data in `cheeky` and `cute` ways to protect our data (if we use `trivial file transfer protocol`).
