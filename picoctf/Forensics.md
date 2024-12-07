@@ -151,3 +151,17 @@ Initially i tried to search for `picoCTF` by doing `tcp contains picoCTF` also d
 
 ## What I Learned
 The `follow` feature analyzes specific streams of data and helps us reconstruct a session for a selected protocol.
+
+# shark on wire 1 
+**Flag:** picoCTF{StaT31355_636f6e6e}
+
+## My Solve
+Opened the file in `Wireshark` and navigated to `Analyze`->`Follow`->`UDP Stream` as it was the only option/stream to follow. Scrolling through the streams we find our flag at the sixth stream
+
+Image
+
+## Incorrect Tangents I Went On
+Initially tried adding a display filter of `udp contains picoCTF` but did not get the flag.
+
+## What I Learned
+Became a bit more familiar with `Wireshark`
