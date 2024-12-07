@@ -174,17 +174,28 @@ Became a bit more familiar with `Wireshark`
 ## My Solve
 Opened the file in `Wireshark`. Looked at the statistics of the file and saw that two protocols are relevant to us `UDP` and `TFTP`. Navigated to `Analyze`->`Follow` and saw that we are able to follow only the `UDP` stream. Scrolling through the streams it seems that there are some files hidden within the `pcap` file.
 
-Image Image
+![image](https://github.com/user-attachments/assets/61c7b59c-d557-4cb9-8258-3041166285df)  ![image](https://github.com/user-attachments/assets/2a431efd-b6d5-44b7-964c-039f9fbd06e5)
+
 
 So navigated to the `File` tab and saved the files through `Export Objects`
 
-Image Image
+![image](https://github.com/user-attachments/assets/ce5051ce-8534-4b55-8bac-e431a4d58756) ![image](https://github.com/user-attachments/assets/054653e6-a2b6-4040-a526-858550f846a9)
+
 
 Now opening the `txt` files we see some sort of encrypted text which we need to somehow decode to move forward. Now opening the `debian package` we see that there is a file called `control`. We open `control` and see that `steghide` was probably used to hide data within the images we exported. 
 
-Image
+![image](https://github.com/user-attachments/assets/fda41723-4b70-487d-bb78-54b188118491)
+
+![image](https://github.com/user-attachments/assets/030ddff4-b113-47bb-9d3b-da81585840f0)
+
+![image](https://github.com/user-attachments/assets/6ba1c5de-294b-4350-b7da-ed70131c2a8b)
+
 
 Now after some trial and error I found out that the text is encrypted by `ROT13`. Decoding `instructions.txt` we see that it says to check `plan`. Now decoding `plan.txt` we can see that it says that it has hid data within the images (probably using steghide) with `DUEDILIGENCE`. After a lot of trial and error it seems that `DUEDILIGENCE` was the passphrase used to hide the data. So we extract the data from the images using `steghide` and with the passphrase `DUEDILIGENCE`
+
+![image](https://github.com/user-attachments/assets/4b736b7e-ccd6-4915-aecd-ffa32906aac9)
+
+![image](https://github.com/user-attachments/assets/5201d78c-fee8-4a14-ab90-ac8b49a53eec)
 
 From the manpage of `steghide` we can see that we can extract data: 
 `To extract embedded data from stg.jpg: steghide extract -sf stg.jpg`
@@ -203,7 +214,8 @@ wrote extracted data to "flag.txt".
 
 We can see that the data extracted from `picture3.bmp` is saved to `flag.txt`. Opening `flag.txt` we get our required flag.
 
-Image
+![image](https://github.com/user-attachments/assets/e0d9fb38-3e47-4520-847b-7fd868f5ba5d)
+
 
 ## Incorrect Tangents I Went On
 + Initially tried adding display filters `udp contains picoCTF` and `tftp contains picoCTF` which did not work.
