@@ -140,11 +140,11 @@ As I have decent experience with coding in java, understanding what the code did
 **Flag:** picoCTF(307019}
 
 ## My Solve
-Firstly made the program executable
+Firstly made the program executable using `chmod`.
 ```
 devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ chmod +x debugger0_b
 ```
-Then passed the program to gdb after which disassembled main as it is said that we need to print the value of `eax` register at the end of main
+Then passed the program to `gdb` after that disassembled `main` as it is said that we need to print the value of `eax` register at the end of `main`.
 ```
 gef➤  disassemble main
 Dump of assembler code for function main:
@@ -172,12 +172,14 @@ Here we can see that `main` ends at `+60` so I set a breakpoint just before `mai
 ```
 gef➤  break *(main+59)
 ```
-Now as it was asked to print the value of `eax` at the end of main we just simply do `print $eax`
+Now as it was asked to print the value of `eax` at the end of main I just simply did `print $eax`
 ```
 gef➤  print $eax
 $1 = 0x4af4b
 ```
 Now converting this hexademical number to decimal, we get our `n` after which we wrap it in `picoCTF{n}` to get our flag.
+
+![image](https://github.com/user-attachments/assets/2c6969de-8153-46ec-a2fc-f62b24a06949)
 
 ## Incorrect Tangents I Went On
 Initially set breakpoint at main without disasssembling and analyzing main, so was not getting to the end of main.
