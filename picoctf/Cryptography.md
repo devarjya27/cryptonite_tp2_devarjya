@@ -156,7 +156,7 @@ if __name__ == "__main__":
     message = sys.argv[1]
     test(message, "trudeau")
   ```
-+ Now in `test` we can see that a and b are random integers generated using p and g and then through the `generator` function u,v,key and b_key are generated and then only if b_key and key are same then we use it as the `key` for encryption.
++ Now in `test` we can see that a and b are random integers generated using `p` and `g` and then through the `generator` function `u`, `v`, `key` and `b_key` are generated and then only if `b_key` and `key` are same then we use it as the `key` for encryption.
   ```
   def test(plain_text, text_key):
     p = 97
@@ -183,7 +183,7 @@ if __name__ == "__main__":
     print(f'cipher is: {cipher}')
   ```
   + Now a `semi_cipher` is formed by passing the `message` and `trudeau` as the `text_key` to `dynamic_xor_encrypt` after which the message is completely encrypted by passing the `semi_cipher` along with `shared_key` which is same as `key` to the `encrypt` function.
-  + In `dynamic_xor_encrypt` the `plain_text` is reversed and each character of this string is `XOR`ed with `key_char` (in a cyclical manner) which is the current character of `test_key`. The XOR encrypted character is now appended to `cipher_text` and then finally returned.
+  + In `dynamic_xor_encrypt` the `plain_text` is reversed and each character of this string is `XOR`ed with `key_char` (in a cyclical manner) which is the current character of `test_key`. The `XOR` encrypted character is now appended to `cipher_text` and then finally returned.
   ```
   def dynamic_xor_encrypt(plaintext, text_key):
     cipher_text = ""
@@ -235,7 +235,7 @@ for c in cipher:
 
 print(dynamic_xor_encrypt(semi_decrypted, "trudeau"))
 ```
-+ Firstly I initialized a,b,p and g along with cipher which are already known to us.
++ Firstly I initialized `a`, `b`, `p` and `g` along with cipher which are already known to us.
 + Now to reverse the `encrypt` function all i did was instead of now multiplying i divided by key and then by 311.
 + Now digging a bit about `XOR` i found out that `XOR` is a reversible processs which means if we `XOR` A using C as they key we get, lets say B as the output. Now if we `XOR` B with C we should get back A.
 + So i passed in `semi_decrypted` with `trudeau` as the key and we get our required flag. the only adjustment i had to do in `dynamic_xor_encrypt` was that now instead of cycling through the reversed `plain_text` we are now cycling through `plain_text` and instead of returning `cipher_text` we are returning the reverse of `cipher_text`. Basically as we are going in a reverse direction we iterated through `plain_text` and not is reverse.
