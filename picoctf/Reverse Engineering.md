@@ -136,5 +136,56 @@ As I have decent experience with coding in java, understanding what the code did
 
 <https://www.youtube.com/watch?v=gh2RXE9BIN8>
 
+# GDB baby step 2
+**Flag:** picoCTF(307019}
+
+## My Solve
+Firstly made the program executable
+```
+devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ chmod +x debugger0_b
+```
+Then passed the program to gdb after which disassembled main as it is said that we need to print the value of `eax` register at the end of main
+```
+gef➤  disassemble main
+Dump of assembler code for function main:
+   0x0000000000401106 <+0>:	endbr64 
+   0x000000000040110a <+4>:	push   rbp
+   0x000000000040110b <+5>:	mov    rbp,rsp
+   0x000000000040110e <+8>:	mov    DWORD PTR [rbp-0x14],edi
+   0x0000000000401111 <+11>:	mov    QWORD PTR [rbp-0x20],rsi
+   0x0000000000401115 <+15>:	mov    DWORD PTR [rbp-0x4],0x1e0da
+   0x000000000040111c <+22>:	mov    DWORD PTR [rbp-0xc],0x25f
+   0x0000000000401123 <+29>:	mov    DWORD PTR [rbp-0x8],0x0
+   0x000000000040112a <+36>:	jmp    0x401136 <main+48>
+   0x000000000040112c <+38>:	mov    eax,DWORD PTR [rbp-0x8]
+   0x000000000040112f <+41>:	add    DWORD PTR [rbp-0x4],eax
+   0x0000000000401132 <+44>:	add    DWORD PTR [rbp-0x8],0x1
+   0x0000000000401136 <+48>:	mov    eax,DWORD PTR [rbp-0x8]
+   0x0000000000401139 <+51>:	cmp    eax,DWORD PTR [rbp-0xc]
+   0x000000000040113c <+54>:	jl     0x40112c <main+38>
+   0x000000000040113e <+56>:	mov    eax,DWORD PTR [rbp-0x4]
+   0x0000000000401141 <+59>:	pop    rbp
+   0x0000000000401142 <+60>:	ret    
+End of assembler dump.
+```
+Here we can see that `main` ends at `+60` so I set a breakpoint just before `main` ends at `+59`.
+```
+gef➤  break *(main+59)
+```
+Now as it was asked to print the value of `eax` at the end of main we just simply do `print $eax`
+```
+gef➤  print $eax
+$1 = 0x4af4b
+```
+Now converting this hexademical number to decimal, we get our `n` after which we wrap it in `picoCTF{n}` to get our flag.
+
+## Incorrect Tangents I Went On
+Initially set breakpoint at main without disasssembling and analyzing main, so was not getting to the end of main.
+
+## What I Learned
+Learned how to set breakpoints at specific points of a function and learned how to print registers.
+
+
+
 
 
