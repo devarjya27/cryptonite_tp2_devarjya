@@ -182,8 +182,8 @@ if __name__ == "__main__":
     cipher = encrypt(semi_cipher, shared_key)
     print(f'cipher is: {cipher}')
   ```
-  + Now a `semi_cipher` is formed by passing the `message` and `trudeau` as the `text_key` to `dynamic_xor_encrypt` after which the message is completely encrypted by passing the `semi_cipher` along with `shared_key` which is same as `key` to the `encrypt` function.
-  + In `dynamic_xor_encrypt` the `plain_text` is reversed and each character of this string is `XOR`ed with `key_char` (in a cyclical manner) which is the current character of `test_key`. The `XOR` encrypted character is now appended to `cipher_text` and then finally returned.
++ Now a `semi_cipher` is formed by passing the `message` and `trudeau` as the `text_key` to `dynamic_xor_encrypt` after which the message is completely encrypted by passing the `semi_cipher` along with `shared_key` which is same as `key` to the `encrypt` function.
++ In `dynamic_xor_encrypt` the `plain_text` is reversed and each character of this string is `XOR`ed with `key_char` (in a cyclical manner) which is the current character of `test_key`. The `XOR` encrypted character is now appended to `cipher_text` and then finally returned.
   ```
   def dynamic_xor_encrypt(plaintext, text_key):
     cipher_text = ""
