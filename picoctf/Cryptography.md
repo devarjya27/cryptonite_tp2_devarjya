@@ -79,3 +79,167 @@ I made a mistake towards the end where i was passing in the original ciphertext 
 
 ## What I Learned
 From this challenge i learned to  decode a basic custom cipher. I realized not all ciphers can be solved using online cryptography decoders. At times writing our own script to decode a particular ciphertext may be required.
+
+# Custom Encryption
+**Flag:** picoCTF{custom_d2cr0pt6d_dc499538}
+
+## My Solve
+We are given the encoded flag and the encryption code. Our job is to decode the flag by modifying the code given to us. Firstly lets understand `custom_encryption.py`:
+```
+from random import randint
+import sys
+
+
+def generator(g, x, p):
+    return pow(g, x) % p
+
+
+def encrypt(plaintext, key):
+    cipher = []
+    for char in plaintext:
+        cipher.append(((ord(char) * key*311)))
+    return cipher
+
+
+def is_prime(p):
+    v = 0
+    for i in range(2, p + 1):
+        if p % i == 0:
+            v = v + 1
+    if v > 1:
+        return False
+    else:
+        return True
+
+
+def dynamic_xor_encrypt(plaintext, text_key):
+    cipher_text = ""
+    key_length = len(text_key)
+    for i, char in enumerate(plaintext[::-1]):
+        key_char = text_key[i % key_length]
+        encrypted_char = chr(ord(char) ^ ord(key_char))
+        cipher_text += encrypted_char
+    return cipher_text
+
+
+def test(plain_text, text_key):
+    p = 97
+    g = 31
+    if not is_prime(p) and not is_prime(g):
+        print("Enter prime numbers")
+        return
+    a = randint(p-10, p)
+    b = randint(g-10, g)
+    print(f"a = {a}")
+    print(f"b = {b}")
+    u = generator(g, a, p)
+    v = generator(g, b, p)
+    key = generator(v, a, p)
+    b_key = generator(u, b, p)
+    shared_key = None
+    if key == b_key:
+        shared_key = key
+    else:
+        print("Invalid key")
+        return
+    semi_cipher = dynamic_xor_encrypt(plain_text, text_key)
+    cipher = encrypt(semi_cipher, shared_key)
+    print(f'cipher is: {cipher}')
+
+if __name__ == "__main__":
+    message = sys.argv[1]
+    test(message, "trudeau")
+```
++ We can see that we input a `message` which gets passed to `test` along with `trudeau`
+  ```
+  if __name__ == "__main__":
+    message = sys.argv[1]
+    test(message, "trudeau")
+  ```
++ Now in `test` we can see that a and b are random integers generated using p and g and then through the `generator` function u,v,key and b_key are generated and then only if b_key and key are same then we use it as the `key` for encryption.
+  ```
+  def test(plain_text, text_key):
+    p = 97
+    g = 31
+    if not is_prime(p) and not is_prime(g):
+        print("Enter prime numbers")
+        return
+    a = randint(p-10, p)
+    b = randint(g-10, g)
+    print(f"a = {a}")
+    print(f"b = {b}")
+    u = generator(g, a, p)
+    v = generator(g, b, p)
+    key = generator(v, a, p)
+    b_key = generator(u, b, p)
+    shared_key = None
+    if key == b_key:
+        shared_key = key
+    else:
+        print("Invalid key")
+        return
+    semi_cipher = dynamic_xor_encrypt(plain_text, text_key)
+    cipher = encrypt(semi_cipher, shared_key)
+    print(f'cipher is: {cipher}')
+  ```
+  + Now a `semi_cipher` is formed by passing the `message` and `trudeau` as the `text_key` to `dynamic_xor_encrypt` after which the message is completely encrypted by passing the `semi_cipher` along with `shared_key` which is same as `key` to the `encrypt` function.
+  + In `dynamic_xor_encrypt` the `plain_text` is reversed and each character of this string is `XOR`ed with `key_char` (in a cyclical manner) which is the current character of `test_key`. The XOR encrypted character is now appended to `cipher_text` and then finally returned.
+  ```
+  def dynamic_xor_encrypt(plaintext, text_key):
+    cipher_text = ""
+    key_length = len(text_key)
+    for i, char in enumerate(plaintext[::-1]):
+        key_char = text_key[i % key_length]
+        encrypted_char = chr(ord(char) ^ ord(key_char))
+        cipher_text += encrypted_char
+    return cipher_text
+  ```
++ Now in `encrypt` the ascii value of each character of `plain_text` is multiplied with `key` and with `311` and then returning the final encrypted message.
+  ```
+  def encrypt(plaintext, key):
+    cipher = []
+    for char in plaintext:
+        cipher.append(((ord(char) * key*311)))
+    return cipher
+  ```
+Now this was my script `decryption.py` to decrypt the encoded flag:
+```
+p = 97
+g = 31
+a = 89
+b = 27
+
+cipher = [33588, 276168, 261240, 302292, 343344, 328416, 242580, 85836, 82104, 156744, 0, 309756, 78372, 18660, 253776, 0, 82104, 320952, 3732, 231384, 89568, 100764, 22392, 22392, 63444, 22392, 97032, 190332, 119424, 182868, 97032, 26124, 44784, 63444]
+
+def generator(g, x, p):
+    return pow(g, x) % p
+
+def dynamic_xor_encrypt(plaintext, text_key):
+    cipher_text = ""
+    key_length = len(text_key)
+    for i, char in enumerate(plaintext):
+        key_char = text_key[i % key_length]
+
+        encrypted_char = chr(ord(char) ^ ord(key_char))
+        cipher_text += encrypted_char
+
+    return cipher_text[::-1]
+
+v = generator(g, b, p)
+key = generator(v, a, p)
+
+semi_decrypted=""
+
+for c in cipher:
+    semi_decrypted += chr(c // 311 // key)
+
+print(dynamic_xor_encrypt(semi_decrypted, "trudeau"))
+```
++ Firstly I initialized a,b,p and g along with cipher which are already known to us.
++ Now to reverse the `encrypt` function all i did was instead of now multiplying i divided by key and then by 311.
++ Now digging a bit about `XOR` i found out that `XOR` is a reversible processs which means if we `XOR` A using C as they key we get, lets say B as the output. Now if we `XOR` B with C we should get back A.
++ So i passed in `semi_decrypted` with `trudeau` as the key and we get our required flag. the only adjustment i had to do in `dynamic_xor_encrypt` was that now instead of cycling through the reversed `plain_text` we are now cycling through `plain_text` and instead of returning `cipher_text` we are returning the reverse of `cipher_text`. Basically as we are going in a reverse direction we iterated through `plain_text` and not is reverse.
+```
+devarjya27@devarjya27-VirtualBox:~$ python -u "/home/devarjya27/Cryptonite TP2/decryption.py"
+picoCTF{custom_d2cr0pt6d_dc499538}
+```
