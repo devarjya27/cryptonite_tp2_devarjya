@@ -243,3 +243,11 @@ print(dynamic_xor_encrypt(semi_decrypted, "trudeau"))
 devarjya27@devarjya27-VirtualBox:~$ python -u "/home/devarjya27/Cryptonite TP2/decryption.py"
 picoCTF{custom_d2cr0pt6d_dc499538}
 ```
+
+## Incorrect Tangents I Went On
++ Initially tried to write everything from scratch instead of modifying the code which was already given to us. Wasted time there.
++ Was getting the wrong output as initially iterated through `plain_text[::1]` instead of `plain_text` while trying to decode by XORing. Fixed it accordingly.
++ was initially generating `key` and `b_key` and then checking for if they are same ten assigning to shared key which would have worked but is just redundant as they are the same and finding out only one of them will work just as fine.
+
+## What I Learned
+Arguably got better at analyzing codes which custom encrypt messages. Still hate cryptography tho.
