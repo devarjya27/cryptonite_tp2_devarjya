@@ -187,7 +187,56 @@ Initially set breakpoint at main without disasssembling and analyzing main, so w
 ## What I Learned
 Learned how to set breakpoints at specific points of a function and learned how to print registers.
 
+# GDB baby step 4
+**Flag:** picoCTF{12905}
 
+## My Solve
+Firstly made the file executable:
+```
+devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ chmod +x debugger0_d
+```
+Now disassembled `main` to see which function multiplies the constant to `eax` and when:
+```
+gef➤  disassemble main
+Dump of assembler code for function main:
+   0x000000000040111c <+0>:	endbr64 
+   0x0000000000401120 <+4>:	push   rbp
+   0x0000000000401121 <+5>:	mov    rbp,rsp
+   0x0000000000401124 <+8>:	sub    rsp,0x20
+   0x0000000000401128 <+12>:	mov    DWORD PTR [rbp-0x14],edi
+   0x000000000040112b <+15>:	mov    QWORD PTR [rbp-0x20],rsi
+   0x000000000040112f <+19>:	mov    DWORD PTR [rbp-0x4],0x28e
+   0x0000000000401136 <+26>:	mov    DWORD PTR [rbp-0x8],0x0
+   0x000000000040113d <+33>:	mov    eax,DWORD PTR [rbp-0x4]
+   0x0000000000401140 <+36>:	mov    edi,eax
+   0x0000000000401142 <+38>:	call   0x401106 <func1>
+   0x0000000000401147 <+43>:	mov    DWORD PTR [rbp-0x8],eax
+   0x000000000040114a <+46>:	mov    eax,DWORD PTR [rbp-0x4]
+   0x000000000040114d <+49>:	leave  
+   0x000000000040114e <+50>:	ret    
+End of assembler dump.
+```
+We can see that `func1` is the only function being called in main so its very likely that `func1` multiplies `eax` with the constant. So now i disassembled `func1` look at whats happening inside that function.
+```
+gef➤  disassemble func1
+Dump of assembler code for function func1:
+   0x0000000000401106 <+0>:	endbr64 
+   0x000000000040110a <+4>:	push   rbp
+   0x000000000040110b <+5>:	mov    rbp,rsp
+   0x000000000040110e <+8>:	mov    DWORD PTR [rbp-0x4],edi
+   0x0000000000401111 <+11>:	mov    eax,DWORD PTR [rbp-0x4]
+   0x0000000000401114 <+14>:	imul   eax,eax,0x3269
+   0x000000000040111a <+20>:	pop    rbp
+   0x000000000040111b <+21>:	ret    
+End of assembler dump.
+```
+Here we can see `imul` at `+14` and we see that `eax` gets multiplied with `0x3269`. Thus that is our required constant. Now convert it to decimal and wrap it in our flag format to get the flag.
+
+## Incorrect Tangents I Went On
+None
+
+## What I Learned
+Became more familiar with `gdb`.
 
 
 
