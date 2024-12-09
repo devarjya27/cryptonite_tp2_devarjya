@@ -226,3 +226,26 @@ We can see that the data extracted from `picture3.bmp` is saved to `flag.txt`. O
 ## What I Learned
 + Became a lot more familiar with `Wireshark` and `Steghide`. 
 + `tftp` doesnt encrypt the data that is sent or recieved thus we need to hide data in `cheeky` and `cute` ways to protect our data (if we use `trivial file transfer protocol`).
+
+# WebNet0
+
+**Flag:** picoCTF{nongshim.shrimp.crackers}
+
+## My Solve
+Loooking at the hint `How can you decrypt the TLS stream?` it was clear that adding simple display filters wont work as it previously worked for other challenges. So I looked into `TLS` streams and from what i understand is that communications via `TLS` are known as `TLS handshakes` and these `handshakes` are encrypted data which can only be decoded with their corresponding keys. That is why the challenge provided us with a packet capture and with a key.
+
+ALso found out that we can import keys into `Wireshark` and it will automatically decrypt the traffic.
+
+So i uploaded the key firstly by navigating to `Edit`-> `Preferences` -> `Protocols` -> `TLS` and clicking `Edit`.
+
+![image](https://github.com/user-attachments/assets/25c8373d-a532-4079-8948-83c3a8076d79)
+
+Now opening the `packet capture` in `Wireshark` we get decrypted traffic. So all i did was follow the `TLS` stream and got the required flag.
+
+![image](https://github.com/user-attachments/assets/b95888fa-a2e2-400b-b353-94a0ef2d0aee)
+
+## Incorrect Tangents I Went On
+As initially i did not we could upload keys into wireshark, wasted a lot of time doing random stuff like following the TCP stream and so on.
+
+## What I Learned
+Learned about `TLS` streams and how to upload keys to wireshark so as to help with decrypting the traffic. Also learned to look at hints on picoCTF so that i do not waste time doing stupid stuff.
