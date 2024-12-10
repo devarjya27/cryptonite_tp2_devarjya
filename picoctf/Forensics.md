@@ -250,6 +250,17 @@ As initially i did not we could upload keys into wireshark, wasted a lot of time
 ## What I Learned
 Learned about `TLS` streams and how to upload keys to wireshark so as to help with decrypting the traffic. Also learned to look at hints on picoCTF so that i do not waste time doing stupid stuff.
 
+# m00nwalk
+**Flag:** picoCTF{beep_boop_im_in_space}
+## My Solve
+Looking at the hint `How did pictures from the moon landing get sent back to Earth?` I asked chatgpt the same question and it said that they were transfered via `SSTV`.
+
+![image](https://github.com/user-attachments/assets/82548624-93e9-44c1-a4d6-336becd06628)
+
+So I searched for `sstv decoder` and came across [this](https://github.com/colaclanth/sstv). Followed the installation instructions which were given in the `README` of the repo
+```
+$ git clone https://github.com/colaclanth/sstv.git
+```
 ```
 devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ git clone https://github.com/colaclanth/sstv.git
 Cloning into 'sstv'...
@@ -260,11 +271,27 @@ remote: Total 221 (delta 51), reused 49 (delta 49), pack-reused 162 (from 1)
 Receiving objects: 100% (221/221), 1.01 MiB | 3.46 MiB/s, done.
 Resolving deltas: 100% (139/139), done.
 ```
+After this used the decoder according to the sample given in `Usage`:
+```
+$ sstv -d audio_file.wav -o result.png
+```
 ```
 devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ sstv -d message.wav -o result.png
 [sstv] Searching for calibration header... Found!    
 [sstv] Detected SSTV mode Scottie 1
-f[sstv] Decoding image...   [##############################...............]  66[sstv] Decoding image...   [#############################################] 100%
+[sstv] Decoding image...   [#############################################] 100%
 [sstv] Drawing image data...
 [sstv] ...Done!
 ```
+Now opening `result.png` we get our flag.
+
+![image](https://github.com/user-attachments/assets/5e0a8fc6-4462-4d3b-a7b6-3f7dd1b9c239)
+
+## Incorrect Tangents I Went On
+Opened up an [online sstv decoder](https://ckegel.github.io/Web-SSTV/decode.html) which was not working. Then I found the github repo which was bestowed upon us by God himself.
+
+## What I Learned
+learnt how to use a sstv decoder made by `colaclanth`
+
+## Resources
+[sstv decoder](https://github.com/colaclanth/sstv)
