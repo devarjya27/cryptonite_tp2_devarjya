@@ -295,3 +295,17 @@ learnt how to use a sstv decoder made by `colaclanth`
 
 ## Resources
 [sstv decoder](https://github.com/colaclanth/sstv)
+
+# Packets Primer
+**Flag:**picoCTF{p4ck37_5h4rk_ceccaa7f}
+
+# My Solve
+We are given a packet capture file so the first thing which came to mind was to open it in `wireshark` so i did that and opening the `statistics` of the file we can see that the only evident protocol is `TCP`.
+
+Now navigating to the `Analyze` Tab and selecting `Follow` and then `TCP Stream` we get our flag at stream 0.
+
+## Incorrect Tangents I Went On
+None as it was a pretty straightforward challenge
+
+## What I Learned
+Becam more familiar with `Wireshark`.
