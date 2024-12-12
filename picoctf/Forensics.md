@@ -309,3 +309,70 @@ None as it was a pretty straightforward challenge
 
 ## What I Learned
 Becam more familiar with `Wireshark`.
+
+# Matroyshka doll
+**Flag:**picoCTF{e3f378fe6c1ea7f6bc5ac2c3d6801c1f}
+
+Looking at the hint `Wait, you can hide files inside files? But how do you find them?` I tried searching for a tool that can help with extracting data from files and apparently `binwalk` is a popular tool for such ctf challenges. So I installed `binwalk` on my machine and looking at its `manpage` the argument `-B` scans the file for signatures whereas `--extract` extracts all possible data that can be extracted.
+```
+devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ binwalk -B dolls.jpg
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             PNG image, 594 x 1104, 8-bit/color RGBA, non-interlaced
+3226          0xC9A           TIFF image data, big-endian, offset of first image directory: 8
+272492        0x4286C         Zip archive data, at least v2.0 to extract, compressed size: 378954, uncompressed size: 383940, name: base_images/2_c.jpg
+651612        0x9F15C         End of Zip archive, footer length: 22
+
+```
+Here we can see that there is a image `2_c.jpg` hidden in this file. So I extracted it.
+```devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ binwalk --extract dolls.jpg
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             PNG image, 594 x 1104, 8-bit/color RGBA, non-interlaced
+3226          0xC9A           TIFF image data, big-endian, offset of first image directory: 8
+272492        0x4286C         Zip archive data, at least v2.0 to extract, compressed size: 378954, uncompressed size: 383940, name: base_images/2_c.jpg
+651612        0x9F15C         End of Zip archive, footer length: 22
+```
+Now we exract `2_c.jpg`:
+```
+devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2/_dolls.jpg.extracted/base_images$ binwalk --extract 2_c.jpg
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             PNG image, 526 x 1106, 8-bit/color RGBA, non-interlaced
+3226          0xC9A           TIFF image data, big-endian, offset of first image directory: 8
+187707        0x2DD3B         Zip archive data, at least v2.0 to extract, compressed size: 196045, uncompressed size: 201447, name: base_images/3_c.jpg
+383807        0x5DB3F         End of Zip archive, footer length: 22
+383918        0x5DBAE         End of Zip archive, footer length: 22
+```
+We get `3_c.jpg` which we again extract:
+```
+devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2/_dolls.jpg.extracted/base_images/_2_c.jpg.extracted/base_images$ binwalk --extract 3_c.jpg
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             PNG image, 428 x 1104, 8-bit/color RGBA, non-interlaced
+3226          0xC9A           TIFF image data, big-endian, offset of first image directory: 8
+123606        0x1E2D6         Zip archive data, at least v2.0 to extract, compressed size: 77653, uncompressed size: 79808, name: base_images/4_c.jpg
+201425        0x312D1         End of Zip archive, footer length: 22
+```
+In the same way we extract `4_c.jpg`
+```
+devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2/_dolls.jpg.extracted/base_images/_2_c.jpg.extracted/base_images/_3_c.jpg.extracted/base_images$ binwalk --extract 4_c.jpg
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             PNG image, 320 x 768, 8-bit/color RGBA, non-interlaced
+3226          0xC9A           TIFF image data, big-endian, offset of first image directory: 8
+79578         0x136DA         Zip archive data, at least v2.0 to extract, compressed size: 64, uncompressed size: 81, name: flag.txt
+79786         0x137AA         End of Zip archive, footer length: 22
+```
+Now we get `flag.txt` which contains the flag to our challenge.
+
+## Incorrect Tangents I Went On
++ Tried opening it in a `hexeditor` to look for some additional info but then found out about `binwalk` which led me to the solution.
+
+## What I Learned
++ Learnt to use `binwalk` which seems to be a very important tool for CTFs in general.
