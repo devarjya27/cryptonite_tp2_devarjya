@@ -72,7 +72,7 @@ Password: G0t_Th3_G0ld_B3rl1nale
 Vault Unlocked! The flag is: nite{El_Pr0f3_0f_Prec1s10n_Pl4ns}
 ```
 
-# Challege Description
+## Challege Description
 Deep within the void lies the Key, shrouded in secrecy and guarded by the enigmatic Keeper. Created for a single purpose, the Keeper has vowed to protect the Key, its defenses said to be unbreakable.
 
 But whispers tell of a flaw-a hidden crack in its impenetrable armor. Those who dare to seek the Key must tread lightly, for the Keeper is cunning and relentless, answering only to the most devious of minds.
@@ -85,7 +85,7 @@ Category: AI
 
 Points: 50
 
-# My Solve
+## My Solve
 
 Firstly connected to the remote server, then it prompted me to solve a challenge, using `pow.py` which was provided solved it thereby completing `proof of work`. Now all i did was put its responses in chatgpt and asked chatgpt to repond with the goal of extracting this `secret` as i was lazy to actually type and shi. After a lot of back and forth i got the flag.
 
