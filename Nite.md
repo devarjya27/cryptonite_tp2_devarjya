@@ -6,7 +6,7 @@ Writeups for the challenges I solved (excluding the OSINT ones) are provided bel
 
 # La Casa De Papel
 
-# Challenge Description
+## Challenge Description
 Word on the street is Bob's about to make a big withdrawal. Too bad you're the one holding his ID. Can you charm Alice into making the transfer before she catches on?
 
 Author: Wixter_07
@@ -15,7 +15,7 @@ Category: Crypto
 
 Points: 50
 
-# My Solve
+## My Solve
 Opening `chall.py` we can see that `practice convo` hashes our input with `secret`. Keeping this in mind lets move forward.
 ```
 def practice_convo(secret):
@@ -24,7 +24,7 @@ def practice_convo(secret):
     print(f"Here is your encrypted message: {hash}")
 ```
 
-Now `fool_alice` prompts us for our name and if our name contains `Bob` then we have succeeded in "semi-fooling" alice. Now we are prompted for `HMAC` now this should match with the hashed `user_name`.
+Now `fool_alice` prompts us for our `user_name` and if our `user_name` contains `Bob` then we have succeeded in "semi-fooling" alice. Now we are prompted for `HMAC` now this should match with the hashed `user_name`.
 ```
 def fool_alice(secret):
     print("\nBot: Okay, let's see if you're the real deal. What's your name?")
