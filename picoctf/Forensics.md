@@ -432,3 +432,79 @@ Learnt what the `mmls` command does.
 
 ## Incorrect Tangents I Went On
 None
+
+# Sleuthkit Apprentice
+**Flag:** picoCTF{by73_5urf3r_2f22df38}
+
+## My Solve
+This challenge racked my brain quite a bit as I had to learn about Sleuthkit commands and how to use them.
+
+Firstly downloaded and extracted our img file then ran `mmls` on it.
+```
+devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ mmls disk.flag.img
+DOS Partition Table
+Offset Sector: 0
+Units are in 512-byte sectors
+
+      Slot      Start        End          Length       Description
+000:  Meta      0000000000   0000000000   0000000001   Primary Table (#0)
+001:  -------   0000000000   0000002047   0000002048   Unallocated
+002:  000:000   0000002048   0000206847   0000204800   Linux (0x83)
+003:  000:001   0000206848   0000360447   0000153600   Linux Swap / Solaris x86 (0x82)
+004:  000:002   0000360448   0000614399   0000253952   Linux (0x83)
+```
+Here we can see that there are 2 Linux systems which are of interest to us and should contain our flag. So i made 2 differrent partitioned image files (with the help of chatGPT) of these Linux systems which we can use individually for further analysis.
+```
+devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ dd if=disk.flag.img of=partition1.img bs=512 skip=2048 count=204800
+204800+0 records in
+204800+0 records out
+104857600 bytes (105 MB, 100 MiB) copied, 2.2357 s, 46.9 MB/s
+devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ dd if=disk.flag.img of=partition2.img bs=512 skip=360448 count=253952
+253952+0 records in
+253952+0 records out
+130023424 bytes (130 MB, 124 MiB) copied, 2.63272 s, 49.4 MB/s
+```
+
+Now we list the file and directory information of `partition1.img` using `fls`.
+```
+devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ fls partition1.img
+d/d 11:	lost+found
+r/r 12:	ldlinux.sys
+r/r 13:	ldlinux.c32
+r/r 15:	config-virt
+r/r 16:	vmlinuz-virt
+r/r 17:	initramfs-virt
+l/l 18:	boot
+r/r 20:	libutil.c32
+r/r 19:	extlinux.conf
+r/r 21:	libcom32.c32
+r/r 22:	mboot.c32
+r/r 23:	menu.c32
+r/r 14:	System.map-virt
+r/r 24:	vesamenu.c32
+V/V 25585:	$OrphanFiles
+```
+Nothing much that seems to relate to `flag`. Now running `fls` on `partition2.img` we get a bunch of files and directories. So i grepped it with `flag`.
+```
+devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ fls -r partition2.img | grep flag
+++ r/r * 2082(realloc):	flag.txt
+++ r/r 2371:	flag.uni.txt
+```
+
+We get 2 promising files. Now we use `icat` to read these files as we know their `inode` numbers.
+```
+devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ icat partition2.img 2082
+            3.449677            13.056403
+devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ icat partition2.img 2371
+picoCTF{by73_5urf3r_2f22df38}
+```
+And voila `flag.uni.txt` contained our flag.
+
+## What I Learned
+Learnt a lot about sleuthkit commands especially `mmls`, `fls` and `icat`. Learnt how to make partitions of a disk using `dd`.
+
+## Incorrect Tangents I Went On
++ Initially did not do `mmls` and went directly to doing `fls` and `icat` which was not working as it was not recognizing the type of file the original `img` file was.
+
+## References
+
