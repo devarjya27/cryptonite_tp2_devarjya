@@ -507,4 +507,7 @@ Learnt a lot about sleuthkit commands especially `mmls`, `fls` and `icat`. Learn
 + Initially did not do `mmls` and went directly to doing `fls` and `icat` which was not working as it was not recognizing the type of file the original `img` file was.
 
 ## References
+[Sleuthkit commands wiki page](https://wiki.sleuthkit.org/index.php?title=The_Sleuth_Kit_commands)
+
+[icat manpage](https://www.sleuthkit.org/sleuthkit/man/icat.html)
 
