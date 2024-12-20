@@ -581,3 +581,35 @@ Nothing much as it was a straightforward challenge
 
 # Incorrect Tangents I Went On
 None
+
+# MSB
+**Flag:** picoCTF{15_y0ur_que57_qu1x071c_0r_h3r01c_572ad5fe}
+
+Firstly renamed the file to `challengefile.png` so that I dont need to type the long filename again and again. Now I opened the file in `StegOnline`.
+
+As we are asked to do `MSB` analysis I clicked on `Extract Data` and checked the 8th bit i.e. no. 7 i.e. the `most significant bit` and clicked on `download extracted data`. This will now extract the data present in the most significant bits of the file.
+
+Image
+
+Now grepping for `pico` in the extracted file we get our flag
+```
+devarjya27@devarjya27-VirtualBox:~/Downloads$ grep "pico" challengefile.dat
+picoCTF{15_y0ur_que57_qu1x071c_0r_h3r01c_572ad5fe}
+```
+
+## What I Learned
+Learnt about Most Significant Bits and how altering certain bits can hide data within files.
+
+## Incorrect Tangents I Went On
+Firstly I tried using `binwalk` on the file and i thought that we might get somewhere if extracted the file.
+```
+devarjya27@devarjya27-VirtualBox:~/Downloads$ binwalk -B challengefile.png
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             PNG image, 1074 x 1500, 8-bit/color RGB, non-interlaced
+41            0x29            Zlib compressed data, default compression
+```
+But extracting the file gave me another `zlib` file which again upon extracting gave me emoty files and after a certain kept repeating.
+
+
