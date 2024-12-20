@@ -376,3 +376,24 @@ Now we get `flag.txt` which contains the flag to our challenge.
 
 ## What I Learned
 + Learnt to use `binwalk` which seems to be a very important tool for CTFs in general.
+
+# like1000
+
+**Flag:** picoCTF{l0t5_0f_TAR5}
+
+## My Solve
+We are given a `.tar` archive named `1000.tar` for the challenge and extracting it we get `999.tar`. Now looking at the hint it is evident that we need to create a script to extract the file 1000 times as doing so manually is impossible. Following is my script:
+```
+import os 
+for i in range(1000, 0, -1):
+    os.system(f"tar -xf {i}.tar")
+    
+```
+Now upon extracting the last `1.tar` file we get a image that contains our flag.
+
+## What I Learned
+Learned to extract `.tar` files and got a bit of practice with scripting as I have a very bad habit of doing stuff manually.
+
+## Incorrect Tangents I Went On
+None
+
