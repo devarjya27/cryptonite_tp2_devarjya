@@ -589,7 +589,8 @@ Firstly renamed the file to `challengefile.png` so that I dont need to type the 
 
 As we are asked to do `MSB` analysis I clicked on `Extract Data` and checked the 8th bit i.e. no. 7 i.e. the `most significant bit` and clicked on `download extracted data`. This will now extract the data present in the most significant bits of the file.
 
-Image
+![image](https://github.com/user-attachments/assets/b9283489-b724-4f3c-9135-22569e337d85)
+
 
 Now grepping for `pico` in the extracted file we get our flag
 ```
