@@ -511,3 +511,24 @@ Learnt a lot about sleuthkit commands especially `mmls`, `fls` and `icat`. Learn
 
 [icat manpage](https://www.sleuthkit.org/sleuthkit/man/icat.html)
 
+# Secret of The Polyglot
+**Flag:** picoCTF{f1u3n7_1n_pn9_&_pdf_724b1287}
+
+## My Solve
+We are given a `pdf` file which contains the second part of the rewuired flag. 
+
+Image
+
+Just to be sure i ran the `file` command and what i got back was very interesting
+```
+devarjya27@devarjya27-VirtualBox:~/Downloads$ file flag2of2-final.pdf
+flag2of2-final.pdf: PNG image data, 50 x 50, 8-bit/color RGBA, non-interlaced
+```
+The `pdf` file is actually a `png` image. Changing the file extension to `png` we get the first part of our flag
+
+Image
+## What I Learned
+Nothing extra really as it was a very simple challenge
+
+## Incorrect Tangents I Went On
+None
