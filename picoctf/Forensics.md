@@ -517,7 +517,8 @@ Learnt a lot about sleuthkit commands especially `mmls`, `fls` and `icat`. Learn
 ## My Solve
 We are given a `pdf` file which contains the second part of the rewuired flag. 
 
-Image
+![image](https://github.com/user-attachments/assets/459e7c97-7f6e-4853-b96d-3f7f84f2c579)
+
 
 Just to be sure i ran the `file` command and what i got back was very interesting
 ```
@@ -526,7 +527,8 @@ flag2of2-final.pdf: PNG image data, 50 x 50, 8-bit/color RGBA, non-interlaced
 ```
 The `pdf` file is actually a `png` image. Changing the file extension to `png` we get the first part of our flag
 
-Image
+![image](https://github.com/user-attachments/assets/30f348f4-adc4-402d-a532-15da805e394a)
+
 ## What I Learned
 Nothing extra really as it was a very simple challenge
 
