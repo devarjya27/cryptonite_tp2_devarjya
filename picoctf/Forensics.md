@@ -397,3 +397,38 @@ Learned to extract `.tar` files and got a bit of practice with scripting as I ha
 ## Incorrect Tangents I Went On
 None
 
+# Sleuthkit Intro
+**Flag:** picoCTF{mm15_f7w!}
+
+## My Solve
+The challenge is very straightforward, we are given a disk image and asked to run `mmls` on it to get the size of the linux partition.
+
+Downloading the image and running `mmls` on it we get the following output:
+```
+devarjya27@devarjya27-VirtualBox:~/Cryptonite TP2$ mmls disk.img
+DOS Partition Table
+Offset Sector: 0
+Units are in 512-byte sectors
+
+      Slot      Start        End          Length       Description
+000:  Meta      0000000000   0000000000   0000000001   Primary Table (#0)
+001:  -------   0000000000   0000002047   0000002048   Unallocated
+002:  000:000   0000002048   0000204799   0000202752   Linux (0x83)
+```
+
+We can see that the length of the linux partition is `202752` sectors. So now all we need to do is connect to the remote server and enter our answer
+```
+taci-picoctf@webshell:~$ nc saturn.picoctf.net 62744
+What is the size of the Linux partition in the given disk image?
+Length in sectors: 202752
+202752
+Great work!
+picoCTF{mm15_f7w!}
+```
+For some reason `netcat` was not working so I had to use the browser webshell available on `picoctf`'s site.
+
+## What I Learned
+Learnt what the `mmls` command does.
+
+## Incorrect Tangents I Went On
+None
