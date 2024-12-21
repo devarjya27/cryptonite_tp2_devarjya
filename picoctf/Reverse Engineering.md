@@ -271,7 +271,7 @@ Try entering "getRandomNumber" without the double quotes...
 ```
 As expected we get our flag. Now converting this to `UTF-16 big endian` we get our flag
 
-Image
+![image](https://github.com/user-attachments/assets/5aca7fef-976f-40ce-8c85-f23e128002a6)
 
 ## Incorrect Tangents I Went On
 None
