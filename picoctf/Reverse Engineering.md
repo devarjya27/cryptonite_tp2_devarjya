@@ -279,4 +279,23 @@ None
 ## What I Learned
 Source code if provided is very helpful if we can understand what the program does.
 
+# Picker II
 
+**Flag:** picoCTF{f1l73r5_f41l_c0d3_r3f4c70r_m1gh7_5ucc33d_95d44590}
+
+## My Solve
+We are provided with the same source code as `Picker I` but we have an additional function `filter()` which returns `False` if our input contains `win`. After struggling for a bit and reading the hint `
+Can you do what win does with your input` it clicked to me what if I just printed `flag.txt` as `win` was doing this.
+```
+devarjya27@devarjya27-VirtualBox:~$ nc saturn.picoctf.net 61764
+==> print(open('flag.txt', 'r').read())
+picoCTF{f1l73r5_f41l_c0d3_r3f4c70r_m1gh7_5ucc33d_95d44590}
+'NoneType' object is not callable
+```
+And we get our flag.
+
+## Incorrect Tangents I Went On
+Initially tried to bypass the `filter` function by modifying my input. Tried escape characters, non string input, etc but nothing seemed to work.
+
+## What I Learned
+Got better at analyzing source code for programs and finding vulnerabilities.
