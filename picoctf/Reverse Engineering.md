@@ -317,7 +317,8 @@ Here i overrode `print_table` which was stored in index `1` so now when I type `
 
 Now converting the hexadecimal version of our flag to `UTF-16 big endian` we get our flag.
 
-Image
+![image](https://github.com/user-attachments/assets/22724bad-e0eb-4c3e-8825-bea2670be4d9)
+
 
 ## Incorrect Tangents I Went On
 Firstly I tried overriding `FUNC_TABLE_SIZE` and `func_table` which clearly was not working after that instead of calling `win` I tried printing `flag.txt` directly as I did in `Picker II` but that also was not working.
