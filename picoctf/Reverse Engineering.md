@@ -238,5 +238,45 @@ None
 ## What I Learned
 Became more familiar with `gdb`.
 
+# Picker I
+
+**Flag:** picoCTF{4_d14m0nd_1n_7h3_r0ugh_ce4b5d5b}
+
+## My Solve
+Looking at the source code provided to use we can see that the program prompts us for a input and calls the function related to our input. For example if our input was `getRandomNumber` it would call `getRandomNumber()`
+```
+print('Try entering "getRandomNumber" without the double quotes...')
+    user_input = input('==> ')
+    eval(user_input + '()')
+```
+Now looking at the source code a bit more we can see that a function `win()` returns `flag.txt` in hexadecimal format
+```
+def win():
+  # This line will not work locally unless you create your own 'flag.txt' in
+  #   the same directory as this script
+  flag = open('flag.txt', 'r').read()
+  #flag = flag[:-1]
+  flag = flag.strip()
+  str_flag = ''
+  for c in flag:
+    str_flag += str(hex(ord(c))) + ' '
+  print(str_flag)
+```
+Thus providing a input of `win` will call this function and return the required flag in hexadecimal format
+```
+devarjya27@devarjya27-VirtualBox:~$ nc saturn.picoctf.net 61555
+Try entering "getRandomNumber" without the double quotes...
+==> win
+0x70 0x69 0x63 0x6f 0x43 0x54 0x46 0x7b 0x34 0x5f 0x64 0x31 0x34 0x6d 0x30 0x6e 0x64 0x5f 0x31 0x6e 0x5f 0x37 0x68 0x33 0x5f 0x72 0x30 0x75 0x67 0x68 0x5f 0x63 0x65 0x34 0x62 0x35 0x64 0x35 0x62 0x7d
+```
+As expected we get our flag. Now converting this to `UTF-16 big endian` we get our flag
+
+Image
+
+## Incorrect Tangents I Went On
+None
+
+## What I Learned
+Source code if provided is very helpful if we can understand what the program does.
 
 
