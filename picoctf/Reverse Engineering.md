@@ -299,3 +299,28 @@ Initially tried to bypass the `filter` function by modifying my input. Tried esc
 
 ## What I Learned
 Got better at analyzing source code for programs and finding vulnerabilities.
+
+# Picker III
+**Flag:** picoCTF{7h15_15_wh47_w3_g37_w17h_u53r5_1n_ch4rg3_c20f5222}
+
+## My Solve
+We can see that the what `call_func` does is calls the function named after the variable depending upon the index in `func_table`. So what  I did was override one of these variables in `func_table` with `win`.
+```
+devarjya27@devarjya27-VirtualBox:~$ nc saturn.picoctf.net 63682
+==> 3
+Please enter variable name to write: print_table
+Please enter new value of variable: win
+==> 1
+0x70 0x69 0x63 0x6f 0x43 0x54 0x46 0x7b 0x37 0x68 0x31 0x35 0x5f 0x31 0x35 0x5f 0x77 0x68 0x34 0x37 0x5f 0x77 0x33 0x5f 0x67 0x33 0x37 0x5f 0x77 0x31 0x37 0x68 0x5f 0x75 0x35 0x33 0x72 0x35 0x5f 0x31 0x6e 0x5f 0x63 0x68 0x34 0x72 0x67 0x33 0x5f 0x63 0x32 0x30 0x66 0x35 0x32 0x32 0x32 0x7d
+```
+Here i overrode `print_table` which was stored in index `1` so now when I type `1` instead of `print_table` `win` gets called.
+
+Now converting the hexadecimal version of our flag to `UTF-16 big endian` we get our flag.
+
+Image
+
+## Incorrect Tangents I Went On
+Firstly I tried overriding `FUNC_TABLE_SIZE` and `func_table` which clearly was not working after that instead of calling `win` I tried printing `flag.txt` directly as I did in `Picker II` but that also was not working.
+
+## What I Learned
+got better at analyzing source code.
