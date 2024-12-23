@@ -619,7 +619,8 @@ But extracting the file gave me another `zlib` file which again upon extracting 
 # My Solve
 In this challenge we are given a image and asked to edit its timestamps now looking at the hint which says to `use exiftool with something else` I searched for `How to edit time stamps with exiftool` and came across this [this](https://exiftool.org/forum/index.php?topic=4596.0) especially
 
-Image
+![image](https://github.com/user-attachments/assets/471723f2-967e-408b-a993-ecfe986ebc53)
+
 
 Here they say that all common time stamps can be edited with `-AllDates` so i did that and checked the modified file.
 ```
@@ -856,7 +857,8 @@ Oops! That tag isn't right. Please try again.
 ```
 Welp this is also not working. Lets refer to original post on the `exiftool` forum I mentioned
 
-Image
+![image](https://github.com/user-attachments/assets/63c22934-39fb-4384-baca-49325298d9b3)
+
 
 `For example, I think it won't be editable if it's from a Samsung phone.` This is why our method was not working as the device through which `original.jpg` was captured was a `Samsung` device.
 
@@ -864,7 +866,7 @@ So I tried to look into other ways in which we can edit `TimeStamp` especially f
 
 So I opened the file in `hexed.it` and at the end of the hexadecimal dump we see this:
 
-Image
+![image](https://github.com/user-attachments/assets/e438993c-946a-44c7-b820-41be2047c762)
 
 `Image_UTC_Data1700513181420` using the epoch converter mentioned above we see that its a valid `Unix` format so I converted this to `0000000000001`. Now submitting this modified image for check we get our required flag:
 ```
