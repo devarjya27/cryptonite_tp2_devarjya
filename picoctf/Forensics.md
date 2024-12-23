@@ -613,4 +613,318 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 ```
 But extracting the file gave me another `zlib` file which again upon extracting gave me emoty files and after a certain kept repeating.
 
+# Blast from the past
+**Flag:** picoCTF{71m3_7r4v311ng_p1c7ur3_3e336564}
 
+# My Solve
+In this challenge we are given a image and asked to edit its timestamps now looking at the hint which says to `use exiftool with something else` I searched for `How to edit time stamps with exiftool` and came across this [this](https://exiftool.org/forum/index.php?topic=4596.0) especially
+
+Image
+
+Here they say that all common time stamps can be edited with `-AllDates` so i did that and checked the modified file.
+```
+devarjya27@devarjya27-VirtualBox:~/Downloads$ exiftool -AllDates='1970:01:01 00:00:00.001' original.jpg
+    1 image files updated
+devarjya27@devarjya27-VirtualBox:~/Downloads$ nc -w 2 mimas.picoctf.net 62380 < original.jpg
+devarjya27@devarjya27-VirtualBox:~/Downloads$ nc mimas.picoctf.net 60758
+MD5 of your picture:
+e7537a20fd614f08232eaa16d4f6587a  test.out
+
+Checking tag 1/7
+Looking at IFD0: ModifyDate
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 2/7
+Looking at ExifIFD: DateTimeOriginal
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 3/7
+Looking at ExifIFD: CreateDate
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 4/7
+Looking at Composite: SubSecCreateDate
+Looking for '1970:01:01 00:00:00.001'
+Found: 1970:01:01 00:00:00.703
+Oops! That tag isn't right. Please try again.
+^C
+```
+As we can see that common tags like `ModifyDate`, `DateTimeOriginal` and `CreateDate` was changed to our required time stamp but the tag `SubSecCreateDate` was not changed but we can do that by specifying the tag.
+```
+devarjya27@devarjya27-VirtualBox:~/Downloads$ exiftool -SubSecCreateDate='1970:01:01 00:00:00.001' original.jpg
+    1 image files updated
+devarjya27@devarjya27-VirtualBox:~/Downloads$ nc -w 2 mimas.picoctf.net 62380 < original.jpg
+devarjya27@devarjya27-VirtualBox:~/Downloads$ nc mimas.picoctf.net 60758
+MD5 of your picture:
+d392ecd311d6b55e23ad4c7295b5806f  test.out
+
+Checking tag 1/7
+Looking at IFD0: ModifyDate
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 2/7
+Looking at ExifIFD: DateTimeOriginal
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 3/7
+Looking at ExifIFD: CreateDate
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 4/7
+Looking at Composite: SubSecCreateDate
+Looking for '1970:01:01 00:00:00.001'
+Found: 1970:01:01 00:00:00.001
+Great job, you got that one!
+
+Checking tag 5/7
+Looking at Composite: SubSecDateTimeOriginal
+Looking for '1970:01:01 00:00:00.001'
+Found: 1970:01:01 00:00:00.703
+Oops! That tag isn't right. Please try again.
+^C
+```
+Now we do the same for `SubSecDateTimeOriginal`.
+```
+devarjya27@devarjya27-VirtualBox:~/Downloads$ exiftool -SubSecDateTimeOriginal='1970:01:01 00:00:00.001' original.jpg
+    1 image files updated
+devarjya27@devarjya27-VirtualBox:~/Downloads$ nc -w 2 mimas.picoctf.net 62380 < original.jpg
+devarjya27@devarjya27-VirtualBox:~/Downloads$ nc mimas.picoctf.net 60758
+MD5 of your picture:
+a87c1acbc96cb4ab0d24095ea8968835  test.out
+
+Checking tag 1/7
+Looking at IFD0: ModifyDate
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 2/7
+Looking at ExifIFD: DateTimeOriginal
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 3/7
+Looking at ExifIFD: CreateDate
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 4/7
+Looking at Composite: SubSecCreateDate
+Looking for '1970:01:01 00:00:00.001'
+Found: 1970:01:01 00:00:00.001
+Great job, you got that one!
+
+Checking tag 5/7
+Looking at Composite: SubSecDateTimeOriginal
+Looking for '1970:01:01 00:00:00.001'
+Found: 1970:01:01 00:00:00.001
+Great job, you got that one!
+
+Checking tag 6/7
+Looking at Composite: SubSecModifyDate
+Looking for '1970:01:01 00:00:00.001'
+Found: 1970:01:01 00:00:00.703
+Oops! That tag isn't right. Please try again.
+^C
+```
+Do the same again for `SubSecModifyDate`
+```
+devarjya27@devarjya27-VirtualBox:~/Downloads$ exiftool -SubSecModifyDate='1970:01:01 00:00:00.001' original.jpg
+    1 image files updated
+devarjya27@devarjya27-VirtualBox:~/Downloads$ nc -w 2 mimas.picoctf.net 62380 < original.jpg
+devarjya27@devarjya27-VirtualBox:~/Downloads$ nc mimas.picoctf.net 60758
+MD5 of your picture:
+eb5ae92ce9f801b9d1aa8e4c800e9705  test.out
+
+Checking tag 1/7
+Looking at IFD0: ModifyDate
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 2/7
+Looking at ExifIFD: DateTimeOriginal
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 3/7
+Looking at ExifIFD: CreateDate
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 4/7
+Looking at Composite: SubSecCreateDate
+Looking for '1970:01:01 00:00:00.001'
+Found: 1970:01:01 00:00:00.001
+Great job, you got that one!
+
+Checking tag 5/7
+Looking at Composite: SubSecDateTimeOriginal
+Looking for '1970:01:01 00:00:00.001'
+Found: 1970:01:01 00:00:00.001
+Great job, you got that one!
+
+Checking tag 6/7
+Looking at Composite: SubSecModifyDate
+Looking for '1970:01:01 00:00:00.001'
+Found: 1970:01:01 00:00:00.001
+Great job, you got that one!
+
+Checking tag 7/7
+Timezones do not have to match, as long as it's the equivalent time.
+Looking at Samsung: TimeStamp
+Looking for '1970:01:01 00:00:00.001+00:00'
+Found: 2023:11:20 20:46:21.420+00:00
+Oops! That tag isn't right. Please try again.
+^C
+```
+Now all we need to edit is the `TimeStamp` tag. Trying to edit with the way we have been doing does not work as we can see.
+```
+devarjya27@devarjya27-VirtualBox:~/Downloads$ exiftool -TimeStamp='1970:01:01 00:00:00.001' original.jpg
+Warning: Not an integer for XMP-apple-fi:TimeStamp
+    0 image files updated
+    1 image files unchanged
+```
+It says that the tag expects an integer whereas the timestamp format which we have been providing is not an integer so I searched for `How to convert Time Stamps to Integers` and came across this [Epoch Converter](https://www.epochconverter.com/) which converts our input to `Unix` format. Providing the time stamp `1970:01:01 00:00:00.001` we get `1` as its `Unix` equivalent. So we enter `1` into the `TimeStamp` tag:
+```
+devarjya27@devarjya27-VirtualBox:~/Downloads$ exiftool -TimeStamp=1 original.jpg
+    1 image files updated
+devarjya27@devarjya27-VirtualBox:~/Downloads$ nc -w 2 mimas.picoctf.net 62380 < original.jpg
+devarjya27@devarjya27-VirtualBox:~/Downloads$ nc mimas.picoctf.net 60758
+MD5 of your picture:
+45c123fb5ae9a1d21e7b69840ac43fab  test.out
+
+Checking tag 1/7
+Looking at IFD0: ModifyDate
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 2/7
+Looking at ExifIFD: DateTimeOriginal
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 3/7
+Looking at ExifIFD: CreateDate
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 4/7
+Looking at Composite: SubSecCreateDate
+Looking for '1970:01:01 00:00:00.001'
+Found: 1970:01:01 00:00:00.001
+Great job, you got that one!
+
+Checking tag 5/7
+Looking at Composite: SubSecDateTimeOriginal
+Looking for '1970:01:01 00:00:00.001'
+Found: 1970:01:01 00:00:00.001
+Great job, you got that one!
+
+Checking tag 6/7
+Looking at Composite: SubSecModifyDate
+Looking for '1970:01:01 00:00:00.001'
+Found: 1970:01:01 00:00:00.001
+Great job, you got that one!
+
+Checking tag 7/7
+Timezones do not have to match, as long as it's the equivalent time.
+Looking at Samsung: TimeStamp
+Looking for '1970:01:01 00:00:00.001+00:00'
+Found: 2023:11:20 20:46:21.420+00:00
+Oops! That tag isn't right. Please try again.
+^C
+```
+Welp this is also not working. Lets refer to original post on the `exiftool` forum I mentioned
+
+Image
+
+`For example, I think it won't be editable if it's from a Samsung phone.` This is why our method was not working as the device through which `original.jpg` was captured was a `Samsung` device.
+
+So I tried to look into other ways in which we can edit `TimeStamp` especially for `Samsung` devices and came across [this](https://stackoverflow.com/questions/78185037/how-to-edit-the-samsung-trailer-tag-timestamp) where they mention to edit the tags using a `hexeditor`.
+
+So I opened the file in `hexed.it` and at the end of the hexadecimal dump we see this:
+
+Image
+
+`Image_UTC_Data1700513181420` using the epoch converter mentioned above we see that its a valid `Unix` format so I converted this to `0000000000001`. Now submitting this modified image for check we get our required flag:
+```
+devarjya27@devarjya27-VirtualBox:~/Downloads$ nc mimas.picoctf.net 60758
+MD5 of your picture:
+373b0170dd0e1d3d33809e34b2292a0b  test.out
+
+Checking tag 1/7
+Looking at IFD0: ModifyDate
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 2/7
+Looking at ExifIFD: DateTimeOriginal
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 3/7
+Looking at ExifIFD: CreateDate
+Looking for '1970:01:01 00:00:00'
+Found: 1970:01:01 00:00:00
+Great job, you got that one!
+
+Checking tag 4/7
+Looking at Composite: SubSecCreateDate
+Looking for '1970:01:01 00:00:00.001'
+Found: 1970:01:01 00:00:00.001
+Great job, you got that one!
+
+Checking tag 5/7
+Looking at Composite: SubSecDateTimeOriginal
+Looking for '1970:01:01 00:00:00.001'
+Found: 1970:01:01 00:00:00.001
+Great job, you got that one!
+
+Checking tag 6/7
+Looking at Composite: SubSecModifyDate
+Looking for '1970:01:01 00:00:00.001'
+Found: 1970:01:01 00:00:00.001
+Great job, you got that one!
+
+Checking tag 7/7
+Timezones do not have to match, as long as it's the equivalent time.
+Looking at Samsung: TimeStamp
+Looking for '1970:01:01 00:00:00.001+00:00'
+Found: 1970:01:01 00:00:00.001+00:00
+Great job, you got that one!
+
+You did it!
+picoCTF{71m3_7r4v311ng_p1c7ur3_3e336564}
+```
+
+## What I Learned
+Time Stamps for a file can be edited in two ways: using `exiftool` as well as manually editting them in a `hexeditor`.
+
+## References
+[exiftool forum](https://exiftool.org/forum/index.php?topic=4596.0)
+
+[Epoch Converter](https://www.epochconverter.com/)
+
+[How to edit the Samsung Trailer Tag "Timestamp"](https://stackoverflow.com/questions/78185037/how-to-edit-the-samsung-trailer-tag-timestamp)
