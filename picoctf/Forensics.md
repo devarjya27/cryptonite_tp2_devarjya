@@ -935,7 +935,7 @@ Time Stamps for a file can be edited in two ways: using `exiftool` as well as ma
 
 **Flag:** picoCTF{w0rd_d4wg_y0u_f0und_5h3113ys_m4573rp13c3_c2cdf0f5}
 
-# My Solve
+## My Solve
 Initially did some steganalysis but had no leads so looked for some hints online and saw that the header `PK` is hidden inside the file so initially ran `strings` and saw that `PK` is indeed there.
 ```
 devarjya27@devarjya27-VirtualBox:~/Downloads$ strings output.bmp
@@ -944,7 +944,7 @@ BGRs
 ```
 `BG` is the file header for a `bitmap` file where as `PK` is the header for a `zip archive`. No opening the file in `hexed.it` we see that rest of the file header i.e. `03 04` 2 bytes away from `PK`. 
 
-Image
+![image](https://github.com/user-attachments/assets/971d21f9-bb3c-40d4-8c11-eba709d4a20f)
 
 So i ran a python script that loops through every 4 bytes and copies the first 2 bytes into `solution`
 ```
@@ -954,11 +954,11 @@ with open('output.bmp','rb') as ip, open('solution','wb') as op:
 ```
 Now opening the file again in `hexed.it` and removing the bytes before `PK` we get a `zip archive` file. 
 
-Image
+![image](https://github.com/user-attachments/assets/9dcb4cc0-d1da-4f85-88f5-6c726495ed8a)
 
 Now extracting this and searching for `pico` we get our flag.
 
-Image
+![image](https://github.com/user-attachments/assets/31339b8c-9a10-462d-a097-dcbadf4e11e7)
 
 ## What I Learned
 A different file can be hidden in another file so one must be on the lookout for hidden file headers withing the file. 
